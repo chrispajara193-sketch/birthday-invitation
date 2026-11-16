@@ -1,9 +1,9 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5ok5loQOKKzEalh4Sqtg5dswiUXEu4Zm992rPfzzo-90c7QCATIQi6gxsi4sJh5v7/exec";
 const PARTY_DATE = new Date("December 12, 2026 14:00:00").getTime();
-const YOUTUBE_URL = "https://www.youtube.com/watch?v=vhVBWw6rId0&list=RDvhVBWw6rId0&start_radio=1";
+const YOUTUBE_URL = "PASTE_YOUR_YOUTUBE_LINK_HERE"; // <-- Put your real YouTube URL here!
 
 // ==========================================
-// 2. DOM ELEMENTS
+// 1. DOM ELEMENTS
 // ==========================================
 const coverScreen = document.getElementById("cover-screen");
 const openInviteBtn = document.getElementById("open-invite-btn");
@@ -16,24 +16,26 @@ const rsvpForm = document.getElementById("rsvp-form");
 const submitBtn = document.getElementById("submit-btn");
 const formStatus = document.getElementById("form-status");
 const wishesList = document.getElementById("wishes-list");
+const musicToggleBtn = document.getElementById("music-toggle-btn");
 
 // ==========================================
-// 3. OPEN INVITATION & CONFETTI ENGINE
+// 2. OPEN INVITATION & CONFETTI ENGINE
 // ==========================================
-openInviteBtn.addEventListener("click", () => {
-  coverScreen.classList.add("fade-out");
-  mainContent.classList.remove("hidden");
+openInviteBtn?.addEventListener("click", () => {
+  coverScreen?.classList.add("fade-out");
+  mainContent?.classList.remove("hidden");
   launchConfetti(100);
   startMusic();
   setTimeout(() => {
-    coverScreen.classList.add("hidden");
+    coverScreen?.classList.add("hidden");
   }, 500);
 });
 
-confettiBtn.addEventListener("click", () => launchConfetti(80));
+confettiBtn?.addEventListener("click", () => launchConfetti(80));
 
 function launchConfetti(count = 70) {
   const canvas = document.getElementById("confetti-canvas");
+  if (!canvas) return;
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -81,14 +83,17 @@ function launchConfetti(count = 70) {
 }
 
 // ==========================================
-// 4. LIVE COUNTDOWN TIMER
+// 3. LIVE COUNTDOWN TIMER
 // ==========================================
 function updateCountdown() {
+  const countdownEl = document.getElementById("countdown");
+  if (!countdownEl) return;
+
   const now = Date.now();
   const diff = PARTY_DATE - now;
 
   if (diff <= 0) {
-    document.getElementById("countdown").innerHTML =
+    countdownEl.innerHTML =
       "<p style='grid-column: span 4; font-weight: 700;'>🎉 It's Party Time Today! 🎉</p>";
     return;
   }
@@ -107,11 +112,13 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // ==========================================
-// 5. RSVP FORM SUBMISSION & WISHES WALL
+// 4. RSVP FORM SUBMISSION & WISHES WALL
 // ==========================================
-attendingSelect.addEventListener("change", () => {
+attendingSelect?.addEventListener("change", () => {
   const isComing = attendingSelect.value.startsWith("Yes");
-  guestCountsDiv.style.display = isComing ? "grid" : "none";
+  if (guestCountsDiv) {
+    guestCountsDiv.style.display = isComing ? "grid" : "none";
+  }
   if (!isComing) {
     document.getElementById("adults").value = 0;
     document.getElementById("kids").value = 0;
@@ -121,7 +128,7 @@ attendingSelect.addEventListener("change", () => {
   }
 });
 
-rsvpForm.addEventListener("submit", async (e) => {
+rsvpForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   submitBtn.disabled = true;
@@ -156,7 +163,7 @@ rsvpForm.addEventListener("submit", async (e) => {
       }
 
       rsvpForm.reset();
-      guestCountsDiv.style.display = "grid";
+      if (guestCountsDiv) guestCountsDiv.style.display = "grid";
     } else {
       throw new Error(result.message || "Something went wrong.");
     }
@@ -170,12 +177,14 @@ rsvpForm.addEventListener("submit", async (e) => {
 });
 
 function showStatus(msg, type) {
+  if (!formStatus) return;
   formStatus.textContent = msg;
   formStatus.className = `form-status ${type}`;
   formStatus.classList.remove("hidden");
 }
 
 function addWishToDOM(name, wish, prepend = false) {
+  if (!wishesList) return;
   const emptyMsg = wishesList.querySelector(".loading-text");
   if (emptyMsg) emptyMsg.remove();
 
@@ -199,6 +208,7 @@ function addWishToDOM(name, wish, prepend = false) {
 }
 
 async function loadWishes() {
+  if (!wishesList) return;
   try {
     const res = await fetch(SCRIPT_URL);
     const data = await res.json();
@@ -220,9 +230,8 @@ async function loadWishes() {
 loadWishes();
 
 // ==========================================
-// 6. YOUTUBE BACKGROUND MUSIC
+// 5. YOUTUBE BACKGROUND MUSIC (SAFE LOADER)
 // ==========================================
-const musicToggleBtn = document.getElementById("music-toggle-btn");
 let ytPlayer = null;
 let isPlayerReady = false;
 let isMusicPlaying = false;
@@ -237,19 +246,28 @@ function extractYouTubeId(url) {
 
 window.onYouTubeIframeAPIReady = function () {
   const videoId = extractYouTubeId(YOUTUBE_URL);
-  if (!videoId) return;
+  if (!videoId) {
+    if (musicToggleBtn) musicToggleBtn.textContent = "🔇 Invalid YouTube URL";
+    return;
+  }
+
+  const playerVars = {
+    autoplay: 0,
+    controls: 0,
+    loop: 1,
+    playlist: videoId,
+    playsinline: 1
+  };
+
+  if (window.location.protocol.startsWith("http")) {
+    playerVars.origin = window.location.origin;
+  }
 
   ytPlayer = new YT.Player("yt-player", {
-    height: "1",
-    width: "1",
+    height: "200",
+    width: "200",
     videoId: videoId,
-    playerVars: {
-      autoplay: 0,
-      controls: 0,
-      loop: 1,
-      playlist: videoId,
-      playsinline: 1
-    },
+    playerVars: playerVars,
     events: {
       onReady: (event) => {
         isPlayerReady = true;
@@ -258,26 +276,38 @@ window.onYouTubeIframeAPIReady = function () {
           startMusic();
         }
       },
-      onError: () => {
-        console.warn("This YouTube video does not allow embedding on external sites.");
-        musicToggleBtn.textContent = "🔇 Music Unavailable";
+      onError: (e) => {
+        console.warn("YouTube Error Code:", e.data);
+        if (musicToggleBtn) {
+          musicToggleBtn.textContent =
+            e.data === 101 || e.data === 150
+              ? "🔇 Song Blocks Embed"
+              : "🔇 Music Unavailable";
+        }
       }
     }
   });
 };
 
+// Dynamically load YouTube API AFTER onYouTubeIframeAPIReady is defined
+(function loadYouTubeAPI() {
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+})();
+
 function startMusic() {
   wantsToPlay = true;
-  musicToggleBtn.classList.remove("hidden");
+  musicToggleBtn?.classList.remove("hidden");
 
   if (isPlayerReady && ytPlayer) {
     ytPlayer.playVideo();
     isMusicPlaying = true;
-    musicToggleBtn.textContent = "🎵 Music: On";
+    if (musicToggleBtn) musicToggleBtn.textContent = "🎵 Music: On";
   }
 }
 
-musicToggleBtn.addEventListener("click", () => {
+musicToggleBtn?.addEventListener("click", () => {
   if (!isPlayerReady || !ytPlayer) return;
 
   if (isMusicPlaying) {
@@ -285,8 +315,3 @@ musicToggleBtn.addEventListener("click", () => {
     isMusicPlaying = false;
     musicToggleBtn.textContent = "🔇 Music: Off";
   } else {
-    ytPlayer.playVideo();
-    isMusicPlaying = true;
-    musicToggleBtn.textContent = "🎵 Music: On";
-  }
-});
