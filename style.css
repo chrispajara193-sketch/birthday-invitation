@@ -435,3 +435,36 @@ footer {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
+
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 90;
+  background: white;
+  color: var(--primary);
+  border: 3px solid var(--accent);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.music-btn:active {
+  transform: scale(0.95);
+}
+
+/* Keep YouTube player invisible but active */
+#yt-player-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0.001;
+  pointer-events: none;
+  overflow: hidden;
+}
