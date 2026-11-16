@@ -1,6 +1,3 @@
-// ==========================================
-// 1. CONFIGURATION - UPDATE THESE TWO VALUES
-// ==========================================
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5ok5loQOKKzEalh4Sqtg5dswiUXEu4Zm992rPfzzo-90c7QCATIQi6gxsi4sJh5v7/exec";
 const PARTY_DATE = new Date("December 12, 2026 14:00:00").getTime();
 const YOUTUBE_URL = "https://www.youtube.com/watch?v=vhVBWw6rId0&list=RDvhVBWw6rId0&start_radio=1";
@@ -110,26 +107,8 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // ==========================================
-// 5. POP THE BALLOONS INTERACTION
+// 5. RSVP FORM SUBMISSION & WISHES WALL
 // ==========================================
-const balloons = document.querySelectorAll(".balloon");
-const balloonMessage = document.getElementById("balloon-message");
-
-balloons.forEach((balloon) => {
-  balloon.addEventListener("click", () => {
-    if (!balloon.classList.contains("popped")) {
-      balloon.classList.add("popped");
-      balloon.textContent = "✨";
-      balloonMessage.textContent = balloon.dataset.msg;
-      launchConfetti(25);
-    }
-  });
-});
-
-// ==========================================
-// 6. RSVP FORM SUBMISSION & WISHES WALL
-// ==========================================
-// Hide adult/kid counts if guest cannot attend
 attendingSelect.addEventListener("change", () => {
   const isComing = attendingSelect.value.startsWith("Yes");
   guestCountsDiv.style.display = isComing ? "grid" : "none";
@@ -145,25 +124,21 @@ attendingSelect.addEventListener("change", () => {
 rsvpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  if (SCRIPT_URL.includes("PASTE_YOUR")) {
-    showStatus("Please add your Google Apps Script URL in script.js first!", "error");
-    return;
-  }
-
   submitBtn.disabled = true;
   submitBtn.textContent = "Sending RSVP... ⏳";
+
+  const notesInput = document.getElementById("notes");
 
   const payload = {
     name: document.getElementById("guest-name").value.trim(),
     attending: attendingSelect.value,
     adults: document.getElementById("adults").value,
     kids: document.getElementById("kids").value,
-    notes: document.getElementById("notes").value.trim(),
+    notes: notesInput ? notesInput.value.trim() : "",
     wish: document.getElementById("wish").value.trim()
   };
 
   try {
-    // Using text/plain avoids CORS preflight issues with Google Apps Script
     const response = await fetch(SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -176,7 +151,6 @@ rsvpForm.addEventListener("submit", async (e) => {
       showStatus("Yay! Your RSVP has been saved. See you there! 🎉", "success");
       launchConfetti(90);
 
-      // Immediately show the new wish on the wall if provided
       if (payload.wish) {
         addWishToDOM(payload.name, payload.wish, true);
       }
@@ -191,7 +165,7 @@ rsvpForm.addEventListener("submit", async (e) => {
     showStatus("Oops! Couldn't send your RSVP. Please try again.", "error");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = "Send RSVP 🚀";
+    submitBtn.textContent = "Send RSVP 🎀";
   }
 });
 
@@ -201,7 +175,6 @@ function showStatus(msg, type) {
   formStatus.classList.remove("hidden");
 }
 
-// Safely create wish elements (prevents XSS)
 function addWishToDOM(name, wish, prepend = false) {
   const emptyMsg = wishesList.querySelector(".loading-text");
   if (emptyMsg) emptyMsg.remove();
@@ -210,7 +183,7 @@ function addWishToDOM(name, wish, prepend = false) {
   item.className = "wish-item";
 
   const author = document.createElement("strong");
-  author.textContent = `🎈 ${name}`;
+  author.textContent = `🎀 ${name}`;
 
   const text = document.createElement("p");
   text.textContent = wish;
@@ -226,12 +199,6 @@ function addWishToDOM(name, wish, prepend = false) {
 }
 
 async function loadWishes() {
-  if (SCRIPT_URL.includes("PASTE_YOUR")) {
-    wishesList.innerHTML =
-      '<p class="loading-text">Connect your Google Apps Script URL to display wishes!</p>';
-    return;
-  }
-
   try {
     const res = await fetch(SCRIPT_URL);
     const data = await res.json();
@@ -241,7 +208,7 @@ async function loadWishes() {
       data.wishes.forEach((w) => addWishToDOM(w.name, w.wish));
     } else {
       wishesList.innerHTML =
-        '<p class="loading-text">No wishes yet. Be the first to send one! 🌟</p>';
+        '<p class="loading-text">No wishes yet. Be the first to send one! ✨</p>';
     }
   } catch (err) {
     console.error(err);
@@ -252,6 +219,9 @@ async function loadWishes() {
 
 loadWishes();
 
+// ==========================================
+// 6. YOUTUBE BACKGROUND MUSIC
+// ==========================================
 const musicToggleBtn = document.getElementById("music-toggle-btn");
 let ytPlayer = null;
 let isPlayerReady = false;
@@ -265,7 +235,6 @@ function extractYouTubeId(url) {
   return match ? match[1] : null;
 }
 
-// YouTube API automatically calls this function when ready
 window.onYouTubeIframeAPIReady = function () {
   const videoId = extractYouTubeId(YOUTUBE_URL);
   if (!videoId) return;
@@ -278,13 +247,13 @@ window.onYouTubeIframeAPIReady = function () {
       autoplay: 0,
       controls: 0,
       loop: 1,
-      playlist: videoId, // Required by YouTube so a single video loops
+      playlist: videoId,
       playsinline: 1
     },
     events: {
       onReady: (event) => {
         isPlayerReady = true;
-        event.target.setVolume(60); // 0 to 100
+        event.target.setVolume(60);
         if (wantsToPlay) {
           startMusic();
         }
@@ -308,7 +277,6 @@ function startMusic() {
   }
 }
 
-// Play/Pause toggle button
 musicToggleBtn.addEventListener("click", () => {
   if (!isPlayerReady || !ytPlayer) return;
 
