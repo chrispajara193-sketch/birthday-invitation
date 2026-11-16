@@ -1,6 +1,6 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5ok5loQOKKzEalh4Sqtg5dswiUXEu4Zm992rPfzzo-90c7QCATIQi6gxsi4sJh5v7/exec";
 const PARTY_DATE = new Date("December 12, 2026 14:00:00").getTime();
-const YOUTUBE_URL = "PASTE_YOUR_YOUTUBE_LINK_HERE"; // <-- Put your real YouTube URL here!
+const YOUTUBE_URL = "https://www.youtube.com/watch?v=vhVBWw6rId0&list=RDvhVBWw6rId0&start_radio=1";
 
 // ==========================================
 // 1. DOM ELEMENTS
