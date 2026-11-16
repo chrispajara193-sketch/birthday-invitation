@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zansa's 1st Birthday Party! 🎈</title>
+  <title>Zansa's 1st Birthday 🎀</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Quicksand:wght@400;500;600;700&family=Sacramento&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="style.css" />
@@ -19,10 +19,12 @@
   <!-- Interactive Cover Overlay -->
   <div id="cover-screen" class="cover-screen">
     <div class="cover-card">
-      <div class="envelope-icon">✉️</div>
-      <span class="badge">You're Invited!</span>
-      <h1>It's Zansa's 1st Birthday!</h1>
-      <p>Tap below to open your special party pass 🎉</p>
+      <div class="envelope-icon">🎀</div>
+      <span class="badge">You're Invited</span>
+      <h1>
+        <span class="script-title">Zansa is turning One</span>
+      </h1>
+      <p>Tap below to open your sweet invitation 🌸</p>
       <button id="open-invite-btn" class="btn-primary bounce">
         Open Invitation ✨
       </button>
@@ -34,12 +36,16 @@
     <!-- Hero Section -->
     <header class="card hero-card">
       <div class="floating-emojis">
-        <span>🎈</span><span>🎂</span><span>🎁</span><span>🌟</span>
+        <span>🌸</span><span>🎀</span><span>🦢</span><span>✨</span>
       </div>
-      <span class="badge">Birthday Bash</span>
-      <h1>Zansa is Turning <span class="highlight">1!</span></h1>
+      <span class="badge">First Birthday Celebration</span>
+      <h1>
+        <span class="hero-name">Zansa</span>
+        is turning <span class="highlight">One!</span>
+      </h1>
+      <div class="divider"></div>
       <p class="subtitle">
-        Come join us for games, cake and lots of fun!
+        One sweet year of giggles, cuddles, and milestones! Come celebrate our little princess's 1st birthday with us.
       </p>
 
       <!-- Live Countdown -->
@@ -63,13 +69,14 @@
       </div>
 
       <button id="confetti-btn" class="btn-secondary">
-        Tap for Party Confetti! 🎊
+        Shower with Pink Confetti ✨
       </button>
     </header>
 
     <!-- Party Details -->
     <section class="card details-card">
-      <h2>📅 Party Details</h2>
+      <h2>🌸 Party Details</h2>
+      <div class="divider"></div>
       <div class="details-grid">
         <div class="detail-item">
           <div class="detail-icon">🗓️</div>
@@ -82,63 +89,63 @@
           <div class="detail-icon">📍</div>
           <div>
             <h3>Where</h3>
-            <p>Sunnyville Playroom &amp; Café<br />123 Rainbow Street</p>
+            <p>Blossom Garden Venue<br />123 Rose Avenue</p>
             <a
-              href="https://www.google.com/maps/place/Jollibee+Commonwealth+-+Soliven/@14.6991288,121.0822385,16z/data=!4m15!1m8!3m7!1s0x3397ca03571ec38b:0x69d1d5751069c11f!2sManila,+Metro+Manila!3b1!8m2!3d14.5995133!4d120.984234!16zL20vMDE5NXBk!3m5!1s0x3397bbcfd080f03b:0x29ad2838e3df95f0!8m2!3d14.7017491!4d121.0868068!16s%2Fg%2F11j2dpfsv7?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D"
+              href="https://maps.google.com/?q=Manila"
               target="_blank"
               rel="noopener noreferrer"
               class="map-link"
             >
-              Open in Google Maps 🗺️
+              View on Google Maps 🗺️
             </a>
           </div>
         </div>
         <div class="detail-item">
-          <div class="detail-icon">👕</div>
+          <div class="detail-icon">👗</div>
           <div>
-            <h3>Dress Code</h3>
-            <p>Comfy play clothes &amp; bright colors!</p>
+            <h3>Attire</h3>
+            <p>Shades of pink, cream, or soft pastels 🎀</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Kid Mini-Game: Pop the Balloons -->
+    <!-- Interactive Pastel Balloons -->
     <section class="card game-card">
-      <h2>🎈 Pop the Party Balloons!</h2>
-      <p>Tap all the balloons to reveal party surprises:</p>
+      <h2>🎀 Tap the Pastel Balloons</h2>
+      <p style="color: var(--muted);">Pop each balloon to see what's waiting at the party:</p>
       <div class="balloons-row" id="balloons-row">
-        <button class="balloon" data-msg="🎂 Chocolate &amp; Strawberry Cake!" style="--b-color: #ff6b6b;">🎈</button>
-        <button class="balloon" data-msg="🤡 Magic Show at 3:00 PM!" style="--b-color: #ffd93d;">🎈</button>
-        <button class="balloon" data-msg="🎁 Loot Bags for Everyone!" style="--b-color: #6bcb77;">🎈</button>
-        <button class="balloon" data-msg="🍕 Pizza &amp; Juice Bar!" style="--b-color: #4d96ff;">🎈</button>
-        <button class="balloon" data-msg="🎶 Freeze Dance Game!" style="--b-color: #c77dff;">🎈</button>
+        <button class="balloon" data-msg="🎂 Sweet Cake Smash &amp; Dessert Bar!" style="--b-color: #ffd6e5;">🌸</button>
+        <button class="balloon" data-msg="📸 Aesthetic Photo Corner!" style="--b-color: #f9bec7;">🎀</button>
+        <button class="balloon" data-msg="🎁 Cute Souvenirs for Little Guests!" style="--b-color: #ffe5ec;">🦢</button>
+        <button class="balloon" data-msg="🫧 Bubble Show &amp; Soft Play!" style="--b-color: #f4acb7;">🫧</button>
+        <button class="balloon" data-msg="🍰 Tasty Treats &amp; Drinks!" style="--b-color: #ffccd5;">🍰</button>
       </div>
       <p id="balloon-message" class="balloon-message">Tap a balloon above! 👆</p>
     </section>
 
     <!-- RSVP Form -->
     <section class="card rsvp-card">
-      <h2>💌 RSVP Now</h2>
-      <p>Please let us know if you can make it!</p>
+      <h2>💌 RSVP</h2>
+      <p style="color: var(--muted);">Kindly confirm your attendance so we can save your seat!</p>
 
       <form id="rsvp-form">
         <div class="form-group">
-          <label for="guest-name">Child / Family Name *</label>
+          <label for="guest-name">Guest / Family Name *</label>
           <input
             type="text"
             id="guest-name"
             name="name"
-            placeholder="e.g. Maya &amp; Family"
+            placeholder="e.g. Tita Ana &amp; Family"
             required
           />
         </div>
 
         <div class="form-group">
-          <label for="attending">Will you attend? *</label>
+          <label for="attending">Will you be celebrating with us? *</label>
           <select id="attending" name="attending" required>
-            <option value="Yes, we'll be there!">Yes, we'll be there! 🎉</option>
-            <option value="Sorry, can't make it">Sorry, can't make it 😢</option>
+            <option value="Yes, we'll be there!">Yes, we can't wait! 🎀</option>
+            <option value="Sorry, can't make it">Sorry, can't make it 💐</option>
           </select>
         </div>
 
@@ -154,17 +161,27 @@
         </div>
 
         <div class="form-group">
-          <label for="wish">Leave a Birthday Wish for Zansa 🎂</label>
+          <label for="notes">Allergies or Notes</label>
+          <input
+            type="text"
+            id="notes"
+            name="notes"
+            placeholder="e.g. No dairy, bringing a stroller"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="wish">Sweet Birthday Wish for Baby Zansa 🌸</label>
           <textarea
             id="wish"
             name="wish"
             rows="3"
-            placeholder="Happy 1st Birthday Zansa! Have a blast!"
+            placeholder="Happy 1st Birthday, Baby Zansa! Wishing you lots of love and giggles!"
           ></textarea>
         </div>
 
         <button type="submit" id="submit-btn" class="btn-primary">
-          Send RSVP 🚀
+          Send RSVP 🎀
         </button>
       </form>
 
@@ -173,17 +190,18 @@
 
     <!-- Birthday Wishes Wall -->
     <section class="card wishes-card">
-      <h2>🌟 Birthday Wishes Wall</h2>
+      <h2>✨ Birthday Wishes Wall</h2>
       <div id="wishes-list" class="wishes-list">
-        <p class="loading-text">Loading wishes...</p>
+        <p class="loading-text">Loading sweet wishes...</p>
       </div>
     </section>
 
     <footer>
-      <p>Made with ❤️ for Zansa's 1st Birthday</p>
+      <p>Made with love for Zansa's 1st Birthday 🎀</p>
     </footer>
   </main>
 
+  <!-- Floating Music Play/Pause Button -->
   <button id="music-toggle-btn" class="music-btn hidden" aria-label="Toggle Background Music">
     🎵 Music: On
   </button>
@@ -195,9 +213,6 @@
 
   <!-- YouTube IFrame API + Your Script -->
   <script src="https://www.youtube.com/iframe_api"></script>
-  <script src="script.js"></script>
-</body>
-  
   <script src="script.js"></script>
 </body>
 </html>
