@@ -1,0 +1,437 @@
+:root {
+  --bg-gradient: linear-gradient(135deg, #fff6b7 0%, #ffd6e0 50%, #c1f0f6 100%);
+  --primary: #ff5964;
+  --primary-dark: #e0434e;
+  --secondary: #35a7ff;
+  --accent: #ffe74c;
+  --text: #2b2d42;
+  --muted: #5c6378;
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --radius: 24px;
+  --shadow: 0 12px 30px rgba(43, 45, 66, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: "Fredoka", sans-serif;
+  letter-spacing: 0.3px;
+}
+
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Cover Screen */
+.cover-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.cover-screen.fade-out {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.cover-card {
+  background: white;
+  padding: 40px 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  border: 4px dashed var(--accent);
+}
+
+.envelope-icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+.cover-card h1 {
+  font-size: 2rem;
+  margin: 12px 0;
+  color: var(--primary);
+}
+
+.cover-card p {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* Badges & Buttons */
+.badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--text);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 6px 0 var(--primary-dark);
+  width: 100%;
+  max-width: 280px;
+}
+
+.btn-primary:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--primary-dark);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: white;
+  box-shadow: 0 5px 0 #1b86db;
+  font-size: 1rem;
+  padding: 10px 22px;
+  margin-top: 16px;
+}
+
+.btn-secondary:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #1b86db;
+}
+
+.bounce {
+  animation: bounce 2s infinite;
+}
+
+/* Layout & Cards */
+.container {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 28px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+/* Hero Section */
+.hero-card h1 {
+  font-size: 2.4rem;
+  margin: 12px 0 8px;
+}
+
+.highlight {
+  color: var(--primary);
+  font-size: 2.8rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+}
+
+.floating-emojis {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.floating-emojis span {
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-emojis span:nth-child(2) { animation-delay: 0.4s; }
+.floating-emojis span:nth-child(3) { animation-delay: 0.8s; }
+.floating-emojis span:nth-child(4) { animation-delay: 1.2s; }
+
+/* Countdown */
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.time-box {
+  background: #f4f8ff;
+  border: 2px solid #d6e6ff;
+  border-radius: 16px;
+  padding: 10px 6px;
+}
+
+.time-box span {
+  display: block;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.5rem;
+  color: var(--secondary);
+}
+
+.time-box small {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* Party Details */
+.details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  margin-top: 16px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fffaf0;
+  padding: 14px;
+  border-radius: 16px;
+  border: 2px solid #ffe9b3;
+}
+
+.detail-icon {
+  font-size: 1.8rem;
+}
+
+.detail-item h3 {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--secondary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.map-link:hover {
+  text-decoration: underline;
+}
+
+/* Balloon Game */
+.balloons-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.balloon {
+  font-size: 2.6rem;
+  background: var(--b-color);
+  border: none;
+  border-radius: 50% 50% 45% 45%;
+  width: 64px;
+  height: 74px;
+  cursor: pointer;
+  box-shadow: inset -6px -8px 0 rgba(0, 0, 0, 0.12), 0 6px 12px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  animation: float 2.4s ease-in-out infinite;
+}
+
+.balloon:nth-child(even) {
+  animation-delay: 0.6s;
+}
+
+.balloon:hover {
+  transform: scale(1.1);
+}
+
+.balloon.popped {
+  transform: scale(1.4);
+  opacity: 0.25;
+  cursor: default;
+  animation: none;
+}
+
+.balloon-message {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.15rem;
+  color: var(--secondary);
+  min-height: 28px;
+}
+
+/* RSVP Form */
+.rsvp-card form {
+  text-align: left;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+input,
+select,
+textarea {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--secondary);
+}
+
+#rsvp-form .btn-primary {
+  margin: 8px auto 0;
+}
+
+.form-status {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.form-status.success {
+  background: #d8f8e1;
+  color: #157347;
+}
+
+.form-status.error {
+  background: #ffe0e3;
+  color: #b02a37;
+}
+
+/* Wishes Wall */
+.wishes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+  text-align: left;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.wish-item {
+  background: #f9f7ff;
+  border-left: 5px solid #c77dff;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.wish-item strong {
+  display: block;
+  font-family: "Fredoka", sans-serif;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+
+.loading-text {
+  text-align: center;
+  color: var(--muted);
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}

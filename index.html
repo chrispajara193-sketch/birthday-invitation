@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leo's 6th Birthday Party! 🎈</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Interactive Cover Overlay -->
+  <div id="cover-screen" class="cover-screen">
+    <div class="cover-card">
+      <div class="envelope-icon">✉️</div>
+      <span class="badge">You're Invited!</span>
+      <h1>It's Leo's 6th Birthday!</h1>
+      <p>Tap below to open your special party pass 🎉</p>
+      <button id="open-invite-btn" class="btn-primary bounce">
+        Open Invitation ✨
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Invitation Content -->
+  <main id="main-content" class="container hidden">
+    <!-- Hero Section -->
+    <header class="card hero-card">
+      <div class="floating-emojis">
+        <span>🎈</span><span>🎂</span><span>🎁</span><span>🌟</span>
+      </div>
+      <span class="badge">Birthday Bash</span>
+      <h1>Leo is Turning <span class="highlight">6!</span></h1>
+      <p class="subtitle">
+        Come join us for games, cake, magic tricks, and lots of fun!
+      </p>
+
+      <!-- Live Countdown -->
+      <div class="countdown" id="countdown">
+        <div class="time-box">
+          <span id="days">00</span>
+          <small>Days</small>
+        </div>
+        <div class="time-box">
+          <span id="hours">00</span>
+          <small>Hours</small>
+        </div>
+        <div class="time-box">
+          <span id="minutes">00</span>
+          <small>Mins</small>
+        </div>
+        <div class="time-box">
+          <span id="seconds">00</span>
+          <small>Secs</small>
+        </div>
+      </div>
+
+      <button id="confetti-btn" class="btn-secondary">
+        Tap for Party Confetti! 🎊
+      </button>
+    </header>
+
+    <!-- Party Details -->
+    <section class="card details-card">
+      <h2>📅 Party Details</h2>
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="detail-icon">🗓️</div>
+          <div>
+            <h3>When</h3>
+            <p>Saturday, December 12, 2026<br />2:00 PM – 5:00 PM</p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon">📍</div>
+          <div>
+            <h3>Where</h3>
+            <p>Sunnyville Playroom &amp; Café<br />123 Rainbow Street</p>
+            <a
+              href="https://maps.google.com/?q=Manila"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="map-link"
+            >
+              Open in Google Maps 🗺️
+            </a>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon">👕</div>
+          <div>
+            <h3>Dress Code</h3>
+            <p>Comfy play clothes &amp; bright colors!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Kid Mini-Game: Pop the Balloons -->
+    <section class="card game-card">
+      <h2>🎈 Pop the Party Balloons!</h2>
+      <p>Tap all the balloons to reveal party surprises:</p>
+      <div class="balloons-row" id="balloons-row">
+        <button class="balloon" data-msg="🎂 Chocolate &amp; Strawberry Cake!" style="--b-color: #ff6b6b;">🎈</button>
+        <button class="balloon" data-msg="🤡 Magic Show at 3:00 PM!" style="--b-color: #ffd93d;">🎈</button>
+        <button class="balloon" data-msg="🎁 Loot Bags for Everyone!" style="--b-color: #6bcb77;">🎈</button>
+        <button class="balloon" data-msg="🍕 Pizza &amp; Juice Bar!" style="--b-color: #4d96ff;">🎈</button>
+        <button class="balloon" data-msg="🎶 Freeze Dance Game!" style="--b-color: #c77dff;">🎈</button>
+      </div>
+      <p id="balloon-message" class="balloon-message">Tap a balloon above! 👆</p>
+    </section>
+
+    <!-- RSVP Form -->
+    <section class="card rsvp-card">
+      <h2>💌 RSVP Now</h2>
+      <p>Please let us know if you can make it!</p>
+
+      <form id="rsvp-form">
+        <div class="form-group">
+          <label for="guest-name">Child / Family Name *</label>
+          <input
+            type="text"
+            id="guest-name"
+            name="name"
+            placeholder="e.g. Maya &amp; Family"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="attending">Will you attend? *</label>
+          <select id="attending" name="attending" required>
+            <option value="Yes, we'll be there!">Yes, we'll be there! 🎉</option>
+            <option value="Sorry, can't make it">Sorry, can't make it 😢</option>
+          </select>
+        </div>
+
+        <div class="form-row" id="guest-counts">
+          <div class="form-group">
+            <label for="adults">Adults</label>
+            <input type="number" id="adults" name="adults" min="0" max="10" value="1" />
+          </div>
+          <div class="form-group">
+            <label for="kids">Kids</label>
+            <input type="number" id="kids" name="kids" min="0" max="10" value="1" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Food Allergies or Notes</label>
+          <input
+            type="text"
+            id="notes"
+            name="notes"
+            placeholder="e.g. Peanut allergy, arriving at 2:30 PM"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="wish">Leave a Birthday Wish for Leo 🎂</label>
+          <textarea
+            id="wish"
+            name="wish"
+            rows="3"
+            placeholder="Happy 6th Birthday Leo! Have a blast!"
+          ></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn-primary">
+          Send RSVP 🚀
+        </button>
+      </form>
+
+      <div id="form-status" class="form-status hidden"></div>
+    </section>
+
+    <!-- Birthday Wishes Wall -->
+    <section class="card wishes-card">
+      <h2>🌟 Birthday Wishes Wall</h2>
+      <div id="wishes-list" class="wishes-list">
+        <p class="loading-text">Loading wishes...</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Made with ❤️ for Leo's 6th Birthday</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
