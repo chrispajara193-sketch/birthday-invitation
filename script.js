@@ -3,6 +3,7 @@
 // ==========================================
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5ok5loQOKKzEalh4Sqtg5dswiUXEu4Zm992rPfzzo-90c7QCATIQi6gxsi4sJh5v7/exec";
 const PARTY_DATE = new Date("December 12, 2026 14:00:00").getTime();
+const YOUTUBE_URL = "https://www.youtube.com/watch?v=vhVBWw6rId0&list=RDvhVBWw6rId0&start_radio=1";
 
 // ==========================================
 // 2. DOM ELEMENTS
@@ -26,6 +27,7 @@ openInviteBtn.addEventListener("click", () => {
   coverScreen.classList.add("fade-out");
   mainContent.classList.remove("hidden");
   launchConfetti(100);
+  startMusic();
   setTimeout(() => {
     coverScreen.classList.add("hidden");
   }, 500);
@@ -249,3 +251,74 @@ async function loadWishes() {
 }
 
 loadWishes();
+
+const musicToggleBtn = document.getElementById("music-toggle-btn");
+let ytPlayer = null;
+let isPlayerReady = false;
+let isMusicPlaying = false;
+let wantsToPlay = false;
+
+function extractYouTubeId(url) {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+  );
+  return match ? match[1] : null;
+}
+
+// YouTube API automatically calls this function when ready
+window.onYouTubeIframeAPIReady = function () {
+  const videoId = extractYouTubeId(YOUTUBE_URL);
+  if (!videoId) return;
+
+  ytPlayer = new YT.Player("yt-player", {
+    height: "1",
+    width: "1",
+    videoId: videoId,
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      loop: 1,
+      playlist: videoId, // Required by YouTube so a single video loops
+      playsinline: 1
+    },
+    events: {
+      onReady: (event) => {
+        isPlayerReady = true;
+        event.target.setVolume(60); // 0 to 100
+        if (wantsToPlay) {
+          startMusic();
+        }
+      },
+      onError: () => {
+        console.warn("This YouTube video does not allow embedding on external sites.");
+        musicToggleBtn.textContent = "🔇 Music Unavailable";
+      }
+    }
+  });
+};
+
+function startMusic() {
+  wantsToPlay = true;
+  musicToggleBtn.classList.remove("hidden");
+
+  if (isPlayerReady && ytPlayer) {
+    ytPlayer.playVideo();
+    isMusicPlaying = true;
+    musicToggleBtn.textContent = "🎵 Music: On";
+  }
+}
+
+// Play/Pause toggle button
+musicToggleBtn.addEventListener("click", () => {
+  if (!isPlayerReady || !ytPlayer) return;
+
+  if (isMusicPlaying) {
+    ytPlayer.pauseVideo();
+    isMusicPlaying = false;
+    musicToggleBtn.textContent = "🔇 Music: Off";
+  } else {
+    ytPlayer.playVideo();
+    isMusicPlaying = true;
+    musicToggleBtn.textContent = "🎵 Music: On";
+  }
+});
