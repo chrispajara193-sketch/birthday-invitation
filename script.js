@@ -315,3 +315,8 @@ musicToggleBtn?.addEventListener("click", () => {
     isMusicPlaying = false;
     musicToggleBtn.textContent = "🔇 Music: Off";
   } else {
+    ytPlayer.playVideo();
+    isMusicPlaying = true;
+    musicToggleBtn.textContent = "🎵 Music: On";
+  }
+});
