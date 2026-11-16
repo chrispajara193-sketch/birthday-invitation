@@ -41,7 +41,7 @@ function launchConfetti(count = 70) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const colors = ["#ff5964", "#ffe74c", "#35a7ff", "#6bcb77", "#c77dff"];
+  const colors = ["#f48fb1", "#f8bbd0", "#d86c8c", "#dfbe8a", "#ffffff"];
   const pieces = Array.from({ length: count }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * -canvas.height * 0.4,
@@ -119,7 +119,7 @@ balloons.forEach((balloon) => {
   balloon.addEventListener("click", () => {
     if (!balloon.classList.contains("popped")) {
       balloon.classList.add("popped");
-      balloon.textContent = "💥";
+      balloon.textContent = "✨";
       balloonMessage.textContent = balloon.dataset.msg;
       launchConfetti(25);
     }
