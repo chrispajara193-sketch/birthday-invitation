@@ -589,3 +589,15 @@ footer {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.03); }
 }
+
+.rsvp-note {
+  margin: 14px auto 4px;
+  padding: 12px 16px;
+  background: var(--soft-pink-bg);
+  border: 1.5px dashed var(--primary-light);
+  border-radius: 16px;
+  color: var(--primary-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
