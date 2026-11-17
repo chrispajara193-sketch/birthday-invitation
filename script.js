@@ -1,5 +1,5 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5ok5loQOKKzEalh4Sqtg5dswiUXEu4Zm992rPfzzo-90c7QCATIQi6gxsi4sJh5v7/exec";
-const PARTY_DATE = new Date("November 28, 2026 14:00:00").getTime();
+const PARTY_DATE = new Date("2026-11-28T16:30:00+8:00").getTime();
 const YOUTUBE_URL = "https://www.youtube.com/watch?v=vhVBWw6rId0&list=RDvhVBWw6rId0&start_radio=1";
 
 // ==========================================
